@@ -1,9 +1,0 @@
-{
-  "name": "zoomClone-back",
-  "version": "1.0.0",
-  "description": "Zoom clone using WebRTC and Websockets",
-  "license": "MIT",
-  "dependencies": {
-    "nodemon": "^2.0.15"
-  }
-}
