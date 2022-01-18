@@ -16,10 +16,14 @@ const handleListen = () => console.log("Listening on http://localhost:8000");
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
-const handleConnection = (event) => {
-  console.log(event);
-};
-
-wss.on("connection", handleConnection);
+// const handleConnection =
+wss.on("connection", (socket) => {
+  console.log("connected to the browser");
+  socket.on("close", () => console.log("disconnected from the browser"));
+  socket.on("message", (message) => {
+    console.log(message.toString("utf8"));
+  });
+  socket.send("hello");
+});
 
 server.listen(8000, handleListen);
