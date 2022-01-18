@@ -16,4 +16,10 @@ const handleListen = () => console.log("Listening on http://localhost:8000");
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
+const handleConnection = (event) => {
+  console.log(event);
+};
+
+wss.on("connection", handleConnection);
+
 server.listen(8000, handleListen);
