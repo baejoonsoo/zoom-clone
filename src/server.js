@@ -16,12 +16,27 @@ const handleListen = () => console.log("Listening on http://localhost:8000");
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
-// const handleConnection =
+const sockets = [];
+
 wss.on("connection", (socket) => {
+  sockets.push(socket);
+  socket["nickname"] = "Anon";
   console.log("connected to the browser");
+
   socket.on("close", () => console.log("disconnected from the browser"));
-  socket.on("message", (message) => {
-    console.log(message.toString("utf8"));
+
+  socket.on("message", (msg) => {
+    // console.log();
+    const message = JSON.parse(msg.toString("utf8"));
+
+    switch (message.type) {
+      case "message":
+        sockets.forEach((aSocket) =>
+          aSocket.send(`${socket.nickname}: ${message.payload}`)
+        );
+      case "nickname":
+        socket["nickname"] = message.payload;
+    }
   });
   socket.send("hello");
 });
