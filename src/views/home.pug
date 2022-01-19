@@ -8,11 +8,5 @@ html(lang="en")
     link(rel="stylesheet" href="https://unpkg.com/mvp.css")
   body 
     main 
-      form#nickName
-        input(type="text", placeholder="write a nickName", required)
-        button save
-      ul
-      form#message
-        input(type="text", placeholder="write a msg", required)
-        button send
+    script(src="/socket.io/socket.io.js") 
     script(src="/public/js/app.js")
