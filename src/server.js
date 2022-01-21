@@ -10,7 +10,7 @@ app.use('/public', express.static(__dirname + '/public'));
 
 app.get('/', (req, res) => res.render('home'));
 
-const handleListen = () => console.log('Listening on http://localhost:8000');
+const handleListen = () => console.log('Listening on http://localhost:3000');
 
 // app.listen(8000, handleListen);
 const httpServer = http.createServer(app);
@@ -21,6 +21,15 @@ wsServer.on('connection', (socket) => {
     socket.join(roomName);
     done();
     socket.to(roomName).emit('welcomeMessage');
+  });
+
+  socket.on('disconnecting', () => {
+    socket.rooms.forEach((room) => socket.to(room).emit('bye'));
+  });
+
+  socket.on('newMessage', (message, roomName, done) => {
+    socket.to(roomName).emit('newMessage', message);
+    done();
   });
 });
 
@@ -54,4 +63,4 @@ wss.on("connection", (socket) => {
 */
 }
 
-httpServer.listen(8000, handleListen);
+httpServer.listen(3000, handleListen);
