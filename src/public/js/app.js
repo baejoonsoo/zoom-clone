@@ -57,12 +57,23 @@ const handleRoomSubmit = (event) => {
 
 form.addEventListener('submit', handleRoomSubmit);
 
-socket.on('welcomeMessage', (user) => {
+socket.on('welcome', (user, newCount) => {
   addMessage(`${user} arrived!`);
 });
 
-socket.on('bye', (left) => {
+socket.on('bye', (left, newCount) => {
   addMessage(`${left} left`);
 });
 
 socket.on('newMessage', addMessage);
+
+socket.on('roomChange', (rooms) => {
+  const roomList = welcome.querySelector('ul');
+  roomList.innerHTML = '';
+
+  rooms.forEach((room) => {
+    const li = document.createElement('li');
+    li.innerText = room;
+    roomList.append(li);
+  });
+});
