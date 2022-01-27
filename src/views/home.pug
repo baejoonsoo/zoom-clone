@@ -9,7 +9,10 @@ html(lang="en")
   body 
     main 
       div#welcome
-        form
+        form#name
+          input(type="text", placeholder='nickname', required)
+          button Save
+        form#joinRoom
           input(type="text", placeholder='room name', required)
           button Enter Room
         h4 Open server:
