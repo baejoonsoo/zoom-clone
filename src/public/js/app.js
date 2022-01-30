@@ -153,8 +153,8 @@ const makeConnection = () => {
 };
 
 const handleAddStream = (data) => {
-  console.log('got an event from my peer');
-  console.log(data);
+  const peersFace = document.querySelector('#peersFace');
+  peersFace.srcObject = data.stream;
 };
 
 const handleIce = (data) => {
